@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #03050f;
+  --foreground: #f2f4ff;
 }
 
 @theme inline {
@@ -14,13 +14,121 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #03050f;
+    --foreground: #f2f4ff;
   }
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(45, 92, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 65%, rgba(132, 0, 255, 0.22), transparent 45%),
+    linear-gradient(145deg, #02030a 0%, #070a1a 60%, #020209 100%);
+}
+
+.scene {
+  perspective: 1200px;
+}
+
+.glass-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(163, 179, 255, 0.18);
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(12, 16, 36, 0.75),
+    rgba(6, 8, 18, 0.65)
+  );
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.glass-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.06) 40%,
+    transparent 70%
+  );
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 280ms ease, border-color 280ms ease;
+}
+
+.tilt-card:hover {
+  transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+  border-color: rgba(176, 194, 255, 0.38);
+}
+
+.perspective-panel {
+  transform: translateZ(0);
+  transition: transform 220ms ease;
+}
+
+.perspective-panel:hover {
+  transform: translateZ(22px);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(85px);
+  opacity: 0.48;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orb-one {
+  top: 5%;
+  left: -10%;
+  width: 26rem;
+  height: 26rem;
+  background: rgba(55, 116, 255, 0.75);
+}
+
+.orb-two {
+  right: -8%;
+  bottom: 4%;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(168, 76, 255, 0.7);
+}
+
+.noise-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+}
+
+@media (max-width: 768px) {
+  .orb-one,
+  .orb-two {
+    width: 18rem;
+    height: 18rem;
+  }
 }
